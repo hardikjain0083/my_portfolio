@@ -1,0 +1,32 @@
+PROGRAMMING LANGUAGES:
+- Python (Advanced: Pandas, NumPy, Scikit-learn)
+- C (Intermediate: Memory management)
+- JavaScript (Intermediate)
+
+CLOUD COMPUTING & DATA ENGINEERING:
+- Google Cloud Platform (GCP)
+- BigQuery & Dataproc (Apache Spark)
+- Cloud Dataflow (Apache Beam)
+- Dataprep by Trifacta (Data Cleaning)
+
+GENERATIVE AI & NLP:
+- Prompt Engineering & Code Critiquing
+- Retrieval-Augmented Generation (RAG) Implementation
+- Large Language Models (LLMs)
+- AI Coding Assistants (GitHub Copilot, Gemini)
+
+WEB DEVELOPMENT:
+- React.js & Tailwind CSS
+- HTML5, CSS3, JSON
+- RESTful APIs
+
+DATA SCIENCE & MACHINE LEARNING:
+- Transfer Learning & Computer Vision
+- Data Analysis & Visualization
+- Web Scraping (BeautifulSoup)
+- Linear Algebra (SVD, PCA, Vector Spaces)
+
+TOOLS & PLATFORMS:
+- Git & GitHub (Version Control)
+- VS Code & Jupyter Notebooks
+- Postman (API Testing)

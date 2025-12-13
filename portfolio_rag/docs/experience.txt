@@ -1,0 +1,28 @@
+ROLE: Co-Founder
+ORGANIZATION: CertiFLEX (Self-Employed)
+DATES: August 2025 - Present
+DETAILS:
+- Building a browser extension to validate educational content consumption on YouTube.
+- Implemented features for timestamp verification and random attention checks to issue certificates.
+- Pitched the startup idea at "Parichat X Illuminate 2025" (September 2025).
+
+ROLE: Treasurer
+ORGANIZATION: Entrepreneurship-Cell (VIT-Bhopal)
+DATES: September 2025 - Present
+DETAILS:
+- Managing financial operations, budget allocation, and funding strategies for the club.
+- Previously served on the Finance and Sponsorship team (Sep 2024 - Sep 2025).
+
+ROLE: Virtual Intern (AI and Data Analytics)
+ORGANIZATION: Edunet Foundation
+DATES: June 16, 2025 - July 16, 2025
+DETAILS:
+- Completed a 4-week intensive internship focused on AI pipelines.
+- Developed a "Garbage Classifier" using Transfer Learning as a capstone project.
+- Gained exposure to industrial AI tools and data analytics frameworks.
+
+ROLE: Volunteer
+EVENT: Illuminate 2025
+DATES: September 2025
+DETAILS:
+- Assisted in the organization and promotion of a major university event.

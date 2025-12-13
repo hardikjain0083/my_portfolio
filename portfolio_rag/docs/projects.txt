@@ -1,0 +1,25 @@
+PROJECT: Aarogya Saathi
+TYPE: Hackathon Project (Nov 2025)
+TECH: AI, Multilingual Chatbot, React
+DETAILS:
+- A rural healthcare platform featuring health scenario simulations and a government scheme eligibility checker.
+- Integrated a multilingual chatbot to break language barriers in health education.
+
+PROJECT: Garbage Classifier
+TYPE: AI Model (June 2025)
+TECH: Python, TensorFlow, Transfer Learning
+DETAILS:
+- Developed a computer vision model to identify 6 classes of waste.
+- Used Transfer Learning to achieve high accuracy with a smaller dataset.
+
+PROJECT: ResumeBERT-HireNet
+TYPE: Research Implementation (Oct 2025)
+TECH: BERT, NLP
+DETAILS:
+- An intelligent recruitment agent that parses resumes and optimizes hiring using Natural Language Processing.
+
+PROJECT: Birthday Countdown Web App
+TYPE: Personal Project (Dec 2025)
+TECH: React, Tailwind CSS
+DETAILS:
+- A responsive web app with a live countdown timer and automated notifications.

@@ -1,0 +1,35 @@
+CERTIFICATION: Prepare Data for ML APIs on Google Cloud
+TYPE: Skill Badge
+ISSUING AUTHORITY: Google Cloud
+DATE ISSUED: December 2025
+LINK: https://www.credly.com/badges/fd9ea153-c656-4038-b855-ff9a39e0a804/linked_in_profile
+DETAILS:
+- Validated ability to build data processing pipelines using Google Cloud tools.
+- Skills: Dataprep by Trifacta, Cloud Dataflow (Apache Beam), Dataproc (Spark), and BigQuery.
+- Completed practical "Challenge Labs" involving real-world data cleaning and ML API integration.
+
+CERTIFICATION: Programming With Generative AI
+TYPE: Course Certification
+ISSUING AUTHORITY: NPTEL (IISc Bangalore)
+DATE ISSUED: November 2025
+DETAILS:
+- Comprehensive course on leveraging Large Language Models (LLMs) for software development.
+- Skills: Prompt Engineering, Code Critiquing, Debugging with AI, and Python/C interoperability.
+- Focus on building RAG (Retrieval-Augmented Generation) applications and using AI tools efficiently.
+
+CERTIFICATION: Python for Data Science, AI & Development
+TYPE: Course Certification
+ISSUING AUTHORITY: Coursera (IBM)
+DATE ISSUED: October 2024
+CREDENTIAL ID: HJ9U7P0UJTVM
+LINK: https://www.coursera.org/account/accomplishments/verify/HJ9U7P0UJTVM
+DETAILS:
+- Foundational training in the Data Science ecosystem.
+- Skills: Python programming, Data Analysis with Pandas & NumPy, Web Scraping (BeautifulSoup), and API interaction.
+
+CERTIFICATION: Artificial Intelligence and Data Analytics
+TYPE: Internship Certificate
+ISSUING AUTHORITY: Edunet Foundation
+DATE ISSUED: July 2025
+DETAILS:
+- awarded for the successful completion of a 4-week virtual internship and project delivery.
