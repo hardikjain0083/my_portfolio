@@ -1,59 +1,69 @@
+import os
+import uvicorn
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.staticfiles import StaticFiles
-from fastapi.responses import FileResponse
 from pydantic import BaseModel
-import os
 from langchain_chroma import Chroma
 from langchain_huggingface import HuggingFaceEmbeddings
 from dotenv import load_dotenv
 from groq import Groq
 
+# Load environment variables
 load_dotenv()
 
-app = FastAPI(title="Portfolio RAG Chatbot")
+app = FastAPI(title="Portfolio RAG Chatbot API")
 
-# Enable CORS for frontend
+# -----------------------------
+# 1. CORS Configuration (Crucial for Vercel)
+# -----------------------------
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=["*"],  # Allows all origins (including your Vercel app)
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
 # -----------------------------
-# Load Vector Store
+# 2. Load Vector Store (With Safety Check)
 # -----------------------------
 PERSIST_DIRECTORY = "db/chroma_db"
+
+# Check if DB exists to prevent crash on startup
+if not os.path.exists(PERSIST_DIRECTORY):
+    print(f"WARNING: Persist directory '{PERSIST_DIRECTORY}' not found. Please ensure you uploaded your 'db' folder.")
 
 print("Loading embedding model...")
 embedding_model = HuggingFaceEmbeddings(
     model_name="all-MiniLM-L6-v2"
 )
 
-print("Loading vector database...")
-db = Chroma(
-    persist_directory=PERSIST_DIRECTORY,
-    embedding_function=embedding_model,
-    collection_metadata={"hnsw:space": "cosine"}
-)
-
-# Initialize retriever
-retriever = db.as_retriever(
-    search_type="similarity_score_threshold",
-    search_kwargs={
-        "k": 5,
-        "score_threshold": 0.3
-    }
-)
+print(f"Loading vector database from {PERSIST_DIRECTORY}...")
+try:
+    db = Chroma(
+        persist_directory=PERSIST_DIRECTORY,
+        embedding_function=embedding_model,
+        collection_metadata={"hnsw:space": "cosine"}
+    )
+    # Initialize retriever
+    retriever = db.as_retriever(
+        search_type="similarity_score_threshold",
+        search_kwargs={
+            "k": 5,
+            "score_threshold": 0.3
+        }
+    )
+except Exception as e:
+    print(f"Error loading vector database: {e}")
+    db = None
+    retriever = None
 
 # -----------------------------
-# Groq LLM Client
+# 3. Groq LLM Client
 # -----------------------------
 groq_api_key = os.getenv("GROQ_API_KEY")
 if not groq_api_key:
-    raise ValueError("GROQ_API_KEY environment variable is not set")
+    print("WARNING: GROQ_API_KEY not set in environment variables.")
 
 client = Groq(api_key=groq_api_key)
 
@@ -72,34 +82,44 @@ class ChatResponse(BaseModel):
 # -----------------------------
 def generate_answer(context: str, query: str) -> str:
     """Generate answer using Groq LLM"""
-    response = client.chat.completions.create(
-        model="llama-3.1-8b-instant",
-        messages=[
-            {
-                "role": "system",
-                "content": (
-                    "You are a RAG-based portfolio assistant. "
-                    "Answer ONLY using the provided context. "
-                    "If the answer is not in the context, say "
-                    "'I don't have enough information based on the provided documents.'"
-                )
-            },
-            {
-                "role": "user",
-                "content": f"Context:\n{context}\n\nQuestion:\n{query}"
-            }
-        ],
-        temperature=0.2
-    )
-    return response.choices[0].message.content
+    if not client.api_key:
+        return "Error: LLM API Key is missing on the server."
+
+    try:
+        response = client.chat.completions.create(
+            model="llama-3.1-8b-instant",
+            messages=[
+                {
+                    "role": "system",
+                    "content": (
+                        "You are a RAG-based portfolio assistant. "
+                        "Answer ONLY using the provided context. "
+                        "If the answer is not in the context, say "
+                        "'I don't have enough information based on the provided documents.'"
+                    )
+                },
+                {
+                    "role": "user",
+                    "content": f"Context:\n{context}\n\nQuestion:\n{query}"
+                }
+            ],
+            temperature=0.2
+        )
+        return response.choices[0].message.content
+    except Exception as e:
+        return f"Error generating answer: {str(e)}"
 
 # -----------------------------
 # API Endpoints
 # -----------------------------
+
 @app.get("/")
-async def read_root():
-    """Serve the frontend HTML file"""
-    return FileResponse("index.html")
+async def root():
+    """Health check endpoint for Vercel/Render"""
+    return {
+        "status": "running", 
+        "message": "Portfolio RAG Backend is active. Connect this URL to your Vercel frontend."
+    }
 
 @app.post("/api/chat", response_model=ChatResponse)
 async def chat(request: ChatRequest):
@@ -110,8 +130,15 @@ async def chat(request: ChatRequest):
         if not query:
             raise HTTPException(status_code=400, detail="Message cannot be empty")
         
+        if not retriever:
+            raise HTTPException(status_code=500, detail="Vector database is not initialized.")
+
         # Retrieve relevant documents
-        relevant_docs = retriever.invoke(query)
+        try:
+            relevant_docs = retriever.invoke(query)
+        except Exception as e:
+            print(f"Retriever error: {e}")
+            return ChatResponse(answer="Error retrieving documents.", sources=[])
         
         if not relevant_docs:
             return ChatResponse(
@@ -134,14 +161,14 @@ async def chat(request: ChatRequest):
         )
     
     except Exception as e:
+        print(f"API Error: {str(e)}")
         raise HTTPException(status_code=500, detail=f"Error processing request: {str(e)}")
 
 @app.get("/api/health")
 async def health_check():
     """Health check endpoint"""
-    return {"status": "healthy", "message": "Chatbot API is running"}
+    return {"status": "healthy", "database_loaded": db is not None}
 
+# Entry point for local debugging (Docker/Spaces will use the command in Dockerfile)
 if __name__ == "__main__":
-    import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=7860)
-
