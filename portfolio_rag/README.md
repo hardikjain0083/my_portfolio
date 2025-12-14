@@ -1,3 +1,12 @@
+---
+title: My Flask App  # You can change this name
+emoji: 🚀            # Pick any emoji
+colorFrom: blue      # Color for the card
+colorTo: purple      # Color for the card
+sdk: docker          # IMPORTANT: Use 'docker' for Flask/Gunicorn apps
+pinned: false
+app_port: 7860       # Hugging Face expects the app to run on port 7860
+---
 # Portfolio RAG Chatbot
 
 An interactive RAG (Retrieval-Augmented Generation) chatbot that answers questions based on your portfolio documents using ChromaDB for vector storage and Groq's LLM for generation.
