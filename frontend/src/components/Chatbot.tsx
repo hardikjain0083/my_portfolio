@@ -12,11 +12,6 @@ interface Message {
 // API Configuration
 const API_BASE_URL = import.meta.env.VITE_API_URL || "https://hardikjain0083-myportfolio.hf.space";
 
-interface ChatResponse {
-  answer: string;
-  sources: string[];
-}
-
 const Chatbot = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
@@ -52,39 +47,37 @@ const Chatbot = () => {
     };
 
     setMessages((prev) => [...prev, userMessage]);
-    const userInput = input.trim();
     setInput("");
     setIsLoading(true);
 
     try {
-      // Call the backend API
       const response = await fetch(`${API_BASE_URL}/api/chat`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ message: userInput }),
+        body: JSON.stringify({ message: userMessage.content }),
       });
 
       if (!response.ok) {
-        throw new Error(`API error: ${response.status}`);
+        throw new Error("Failed to get response");
       }
 
-      const data: ChatResponse = await response.json();
+      const data = await response.json();
 
       const assistantMessage: Message = {
         id: (Date.now() + 1).toString(),
         role: "assistant",
-        content: data.answer || "I apologize, but I couldn't generate a response. Please try again.",
+        content: data.answer,
       };
 
       setMessages((prev) => [...prev, assistantMessage]);
     } catch (error) {
-      console.error("Error calling chatbot API:", error);
+      console.error("Chat error:", error);
       const errorMessage: Message = {
         id: (Date.now() + 1).toString(),
         role: "assistant",
-        content: "Sorry, I'm having trouble connecting to the chatbot service. Please make sure the backend is running and try again.",
+        content: "I apologize, but I'm having trouble connecting to the server right now. Please try again later.",
       };
       setMessages((prev) => [...prev, errorMessage]);
     } finally {

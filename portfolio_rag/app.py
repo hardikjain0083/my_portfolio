@@ -39,34 +39,24 @@ embedding_model = HuggingFaceEmbeddings(
 )
 
 print(f"Loading vector database from {PERSIST_DIRECTORY}...")
-retriever = None
-fallback_retriever = None
 try:
     db = Chroma(
         persist_directory=PERSIST_DIRECTORY,
         embedding_function=embedding_model,
         collection_metadata={"hnsw:space": "cosine"}
     )
-    # Initialize retriever with fallback mechanism
-    # First try similarity_score_threshold, but with lower threshold
+    # Initialize retriever
     retriever = db.as_retriever(
         search_type="similarity_score_threshold",
         search_kwargs={
             "k": 5,
-            "score_threshold": 0.2  # Lowered from 0.3 to 0.2 for better retrieval
+            "score_threshold": 0.3
         }
-    )
-    
-    # Create a fallback retriever without threshold for when no docs are found
-    fallback_retriever = db.as_retriever(
-        search_type="similarity",
-        search_kwargs={"k": 3}
     )
 except Exception as e:
     print(f"Error loading vector database: {e}")
     db = None
     retriever = None
-    fallback_retriever = None
 
 # -----------------------------
 # 3. Groq LLM Client
@@ -143,43 +133,16 @@ async def chat(request: ChatRequest):
         if not retriever:
             raise HTTPException(status_code=500, detail="Vector database is not initialized.")
 
-        # Retrieve relevant documents with primary retriever
-        relevant_docs = []
+        # Retrieve relevant documents
         try:
             relevant_docs = retriever.invoke(query)
-            print(f"Primary retriever found {len(relevant_docs)} documents")
         except Exception as e:
-            print(f"Primary retriever error: {e}")
+            print(f"Retriever error: {e}")
+            return ChatResponse(answer="Error retrieving documents.", sources=[])
         
-        # Fallback: If no documents found, use fallback retriever without threshold
-        if not relevant_docs and fallback_retriever:
-            try:
-                print("Using fallback retriever (no threshold)...")
-                relevant_docs = fallback_retriever.invoke(query)
-                print(f"Fallback retriever found {len(relevant_docs)} documents")
-            except Exception as e:
-                print(f"Fallback retriever error: {e}")
-        
-        # If still no documents, check if database has any documents at all
         if not relevant_docs:
-            try:
-                # Try to get any documents from the database
-                all_docs = db.similarity_search(query, k=3)
-                if all_docs:
-                    print(f"Found {len(all_docs)} documents using direct similarity_search")
-                    relevant_docs = all_docs
-            except Exception as e:
-                print(f"Direct search error: {e}")
-        
-        # Log retrieval details for debugging
-        if relevant_docs:
-            print(f"Retrieved {len(relevant_docs)} relevant chunks")
-            for i, doc in enumerate(relevant_docs[:2]):  # Log first 2
-                print(f"  Chunk {i+1}: {len(doc.page_content)} chars from {doc.metadata.get('source', 'Unknown')}")
-        else:
-            print("WARNING: No documents retrieved for query:", query)
             return ChatResponse(
-                answer="I don't have enough information based on the provided documents. Please try rephrasing your question or ask about my skills, experience, projects, or education.",
+                answer="I don't have enough information based on the provided documents.",
                 sources=[]
             )
         
@@ -199,41 +162,12 @@ async def chat(request: ChatRequest):
     
     except Exception as e:
         print(f"API Error: {str(e)}")
-        import traceback
-        traceback.print_exc()
         raise HTTPException(status_code=500, detail=f"Error processing request: {str(e)}")
 
 @app.get("/api/health")
 async def health_check():
     """Health check endpoint"""
-    db_status = "loaded" if db is not None else "not loaded"
-    doc_count = 0
-    sample_query_result = None
-    try:
-        if db:
-            # Try to get collection count
-            collection = db._collection
-            if collection:
-                doc_count = collection.count()
-                # Try a sample query to see if retrieval works
-                try:
-                    sample_docs = db.similarity_search("skills", k=1)
-                    sample_query_result = {
-                        "found_documents": len(sample_docs),
-                        "working": len(sample_docs) > 0
-                    }
-                except Exception as e:
-                    sample_query_result = {"error": str(e)}
-    except Exception as e:
-        print(f"Error getting doc count: {e}")
-    
-    return {
-        "status": "healthy", 
-        "database_loaded": db is not None,
-        "database_status": db_status,
-        "document_count": doc_count,
-        "sample_query": sample_query_result
-    }
+    return {"status": "healthy", "database_loaded": db is not None}
 
 # Entry point for local debugging (Docker/Spaces will use the command in Dockerfile)
 if __name__ == "__main__":

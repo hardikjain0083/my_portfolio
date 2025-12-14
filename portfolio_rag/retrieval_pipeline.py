@@ -24,8 +24,7 @@ db = Chroma(
 # -----------------------------
 # Query
 # -----------------------------
-# You can modify this query to test different questions
-query = "What are your skills?"
+query = ""
 
 retriever = db.as_retriever(
     search_type="similarity_score_threshold",
