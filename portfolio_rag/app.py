@@ -45,12 +45,17 @@ try:
         embedding_function=embedding_model,
         collection_metadata={"hnsw:space": "cosine"}
     )
-    # Initialize retriever
+    
+    # Check if DB is empty
+    count = db._collection.count()
+    print(f"Vector database loaded with {count} documents.")
+
+    # Initialize retriever with lower threshold
     retriever = db.as_retriever(
         search_type="similarity_score_threshold",
         search_kwargs={
             "k": 5,
-            "score_threshold": 0.3
+            "score_threshold": 0.2  # Lowered from 0.3 to catch more relevant chunks
         }
     )
 except Exception as e:
