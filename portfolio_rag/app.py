@@ -27,11 +27,33 @@ app.add_middleware(
 # -----------------------------
 # 2. Load Vector Store (With Safety Check)
 # -----------------------------
-PERSIST_DIRECTORY = "db/chroma_db"
+def find_persist_directory():
+    """
+    Dynamically find the directory containing chroma.sqlite3.
+    This handles cases where the user uploaded 'db' folder, 'chroma_db' folder, 
+    or just the files to the root.
+    """
+    possible_paths = [
+        "db/chroma_db",
+        "chroma_db",
+        ".",
+        "db"
+    ]
+    
+    for path in possible_paths:
+        if os.path.exists(os.path.join(path, "chroma.sqlite3")):
+            print(f"Found database in: {path}")
+            return path
+            
+    return None
 
-# Check if DB exists to prevent crash on startup
-if not os.path.exists(PERSIST_DIRECTORY):
-    print(f"WARNING: Persist directory '{PERSIST_DIRECTORY}' not found. Please ensure you uploaded your 'db' folder.")
+PERSIST_DIRECTORY = find_persist_directory()
+
+if not PERSIST_DIRECTORY:
+    print("CRITICAL WARNING: Could not find 'chroma.sqlite3' in any expected directory.")
+    print("Please ensure you uploaded the 'db' folder or 'chroma_db' folder correctly.")
+    # Fallback to default to prevent immediate crash, though it will be empty
+    PERSIST_DIRECTORY = "db/chroma_db"
 
 print("Loading embedding model...")
 embedding_model = HuggingFaceEmbeddings(
