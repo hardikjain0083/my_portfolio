@@ -10,7 +10,7 @@ interface Message {
 }
 
 // API Configuration
-const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:8000";
+const API_BASE_URL = import.meta.env.VITE_API_URL || "https://hardikjain0083-myportfolio.hf.space";
 
 interface ChatResponse {
   answer: string;
