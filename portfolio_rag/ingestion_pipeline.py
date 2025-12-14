@@ -14,10 +14,12 @@ def load_documents(docs_path="docs"):
         raise FileNotFoundError(f"The directory {docs_path} does not exist. Please create it and add your company files.")
     
     # Load all .txt files from the docs directory
+    # Handle encoding issues by specifying encoding
     loader = DirectoryLoader(
         path=docs_path,
         glob="*.txt",
-        loader_cls=TextLoader
+        loader_cls=TextLoader,
+        loader_kwargs={"encoding": "utf-8"}
     )
     
     documents = loader.load()
