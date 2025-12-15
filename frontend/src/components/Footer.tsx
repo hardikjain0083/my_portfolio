@@ -1,4 +1,4 @@
-import { Github, Linkedin, Twitter, Mail, Heart } from "lucide-react";
+import { Github, Linkedin, Mail, Heart } from "lucide-react";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -6,8 +6,7 @@ const Footer = () => {
   const socialLinks = [
     { icon: Github, href: "https://github.com", label: "GitHub" },
     { icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn" },
-    { icon: Twitter, href: "https://twitter.com", label: "Twitter" },
-    { icon: Mail, href: "mailto:hello@example.com", label: "Email" },
+    { icon: Mail, href: "mailto:hardikjain0083@gmail.com", label: "Email" },
   ];
 
   return (
@@ -17,7 +16,7 @@ const Footer = () => {
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
             {/* Logo & Copyright */}
             <div className="flex flex-col items-center md:items-start gap-2">
-              <span className="text-xl font-bold gradient-text">Portfolio</span>
+              <span className="text-xl font-bold gradient-text">Hardik Jain</span>
               <p className="text-sm text-muted-foreground">
                 © {currentYear} All rights reserved.
               </p>

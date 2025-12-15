@@ -4,37 +4,37 @@ import { Button } from "./ui/button";
 
 const projects = [
   {
-    title: "AI-Powered Analytics Dashboard",
-    description: "A comprehensive analytics platform with AI-driven insights, real-time data visualization, and predictive modeling capabilities.",
-    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop",
-    tags: ["React", "TypeScript", "Python", "TensorFlow"],
+    title: "Aarogya Saathi",
+    description: "Rural healthcare platform with multilingual chatbot & government scheme checker. (Hackathon Winner)",
+    image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&h=600&fit=crop",
+    tags: ["React", "AI Chatbot", "Healthcare"],
     liveUrl: "#",
     githubUrl: "#",
     featured: true,
   },
   {
-    title: "E-Commerce Platform",
-    description: "Modern e-commerce solution with seamless checkout, inventory management, and personalized recommendations.",
-    image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&h=600&fit=crop",
-    tags: ["Next.js", "Stripe", "PostgreSQL", "Redis"],
+    title: "CertiFLEX (Startup)",
+    description: "Browser extension to validate educational content consumption on YouTube with timestamp verification.",
+    image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&h=600&fit=crop",
+    tags: ["Chrome Extension", "Validation Logic", "Startup"],
     liveUrl: "#",
     githubUrl: "#",
     featured: true,
   },
   {
-    title: "Real-Time Collaboration Tool",
-    description: "Collaborative workspace with real-time editing, video conferencing, and project management features.",
-    image: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=600&fit=crop",
-    tags: ["React", "WebSocket", "Node.js", "MongoDB"],
-    liveUrl: "#",
+    title: "ResumeBERT-HireNet",
+    description: "Intelligent recruitment agent parsing resumes using BERT & NLP. Published research paper.",
+    image: "https://images.unsplash.com/photo-1586281380349-632531db7ed4?w=800&h=600&fit=crop",
+    tags: ["BERT", "NLP", "Research"],
+    liveUrl: "https://ijirt.org/publishedpaper/IJIRT185215_PAPER.pdf",
     githubUrl: "#",
-    featured: false,
+    featured: true,
   },
   {
-    title: "Smart Home IoT Dashboard",
-    description: "Centralized control system for smart home devices with automation rules and energy monitoring.",
-    image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&h=600&fit=crop",
-    tags: ["React", "MQTT", "InfluxDB", "Grafana"],
+    title: "Garbage Classifier",
+    description: "Computer vision model identifying 6 waste classes using Transfer Learning.",
+    image: "https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?w=800&h=600&fit=crop",
+    tags: ["Python", "TensorFlow", "Transfer Learning"],
     liveUrl: "#",
     githubUrl: "#",
     featured: false,
@@ -82,9 +82,8 @@ const ProjectsSection = () => {
             {projects.map((project, index) => (
               <div
                 key={project.title}
-                className={`group glass rounded-2xl overflow-hidden hover-lift transition-all duration-700 ${
-                  isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-                }`}
+                className={`group glass rounded-2xl overflow-hidden hover-lift transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+                  }`}
                 style={{ transitionDelay: `${index * 150}ms` }}
               >
                 {/* Project Image */}
@@ -95,7 +94,7 @@ const ProjectsSection = () => {
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-card to-transparent opacity-60" />
-                  
+
                   {/* Featured Badge */}
                   {project.featured && (
                     <div className="absolute top-4 left-4 px-3 py-1 rounded-full bg-primary/90 text-primary-foreground text-xs font-medium">

@@ -2,43 +2,39 @@ import { useEffect, useRef, useState } from "react";
 
 const skillCategories = [
   {
-    title: "Frontend",
+    title: "Languages",
     skills: [
-      { name: "React", level: 95 },
-      { name: "TypeScript", level: 90 },
-      { name: "Next.js", level: 85 },
-      { name: "Tailwind CSS", level: 95 },
-      { name: "Vue.js", level: 75 },
+      { name: "Python", level: 95 },
+      { name: "C++", level: 90 },
+      { name: "C", level: 85 },
+      { name: "SQL", level: 85 },
     ],
   },
   {
-    title: "Backend",
+    title: "Backend & Databases",
     skills: [
-      { name: "Node.js", level: 90 },
-      { name: "Python", level: 85 },
+      { name: "MongoDB", level: 85 },
       { name: "PostgreSQL", level: 85 },
-      { name: "GraphQL", level: 80 },
-      { name: "Redis", level: 75 },
+      { name: "System Design", level: 80 },
+      { name: "API Design", level: 90 },
     ],
   },
   {
-    title: "DevOps & Tools",
+    title: "AI & Machine Learning",
     skills: [
+      { name: "TensorFlow/PyTorch", level: 85 },
+      { name: "RAG Systems", level: 90 },
+      { name: "NLP (BERT/LLMs)", level: 90 },
+      { name: "Computer Vision", level: 80 },
+    ],
+  },
+  {
+    title: "Tools & Cloud",
+    skills: [
+      { name: "Git/GitHub", level: 95 },
       { name: "Docker", level: 85 },
-      { name: "AWS", level: 80 },
-      { name: "Git", level: 95 },
-      { name: "CI/CD", level: 85 },
-      { name: "Kubernetes", level: 70 },
-    ],
-  },
-  {
-    title: "AI & ML",
-    skills: [
-      { name: "OpenAI API", level: 90 },
-      { name: "LangChain", level: 85 },
-      { name: "Vector DBs", level: 80 },
-      { name: "TensorFlow", level: 70 },
-      { name: "RAG Systems", level: 85 },
+      { name: "Google Cloud (GCP)", level: 80 },
+      { name: "VS Code", level: 95 },
     ],
   },
 ];
@@ -84,9 +80,8 @@ const SkillsSection = () => {
             {skillCategories.map((category, catIndex) => (
               <div
                 key={category.title}
-                className={`glass p-8 rounded-2xl transition-all duration-700 ${
-                  isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-                }`}
+                className={`glass p-8 rounded-2xl transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+                  }`}
                 style={{ transitionDelay: `${catIndex * 150}ms` }}
               >
                 <h3 className="text-xl font-semibold mb-6 flex items-center gap-3">

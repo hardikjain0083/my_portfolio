@@ -7,6 +7,9 @@ import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
 import Chatbot from "@/components/Chatbot";
 
+import ExperienceSection from "@/components/ExperienceSection";
+import CertificatesSection from "@/components/CertificatesSection";
+
 const Index = () => {
   return (
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
@@ -14,8 +17,10 @@ const Index = () => {
       <main>
         <HeroSection />
         <AboutSection />
+        <ExperienceSection />
         <SkillsSection />
         <ProjectsSection />
+        <CertificatesSection />
         <ContactSection />
       </main>
       <Footer />

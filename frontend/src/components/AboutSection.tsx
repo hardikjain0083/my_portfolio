@@ -2,10 +2,10 @@ import { useEffect, useRef, useState } from "react";
 import { Code2, Rocket, Users, Zap } from "lucide-react";
 
 const stats = [
-  { icon: Code2, value: "5+", label: "Years Experience" },
-  { icon: Rocket, value: "50+", label: "Projects Completed" },
-  { icon: Users, value: "30+", label: "Happy Clients" },
-  { icon: Zap, value: "99%", label: "Success Rate" },
+  { icon: Code2, value: "2nd", label: "Year Student" },
+  { icon: Rocket, value: "500k+", label: "Participants Beaten (CodeVita)" },
+  { icon: Users, value: "2+", label: "Leadership Roles" },
+  { icon: Zap, value: "AIML", label: "Specialization" },
 ];
 
 const AboutSection = () => {
@@ -49,28 +49,21 @@ const AboutSection = () => {
             {/* Left Column - About Text */}
             <div className={`space-y-6 transition-all duration-700 delay-200 ${isVisible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-10"}`}>
               <p className="text-lg text-muted-foreground leading-relaxed">
-                I'm a full-stack developer with a passion for creating beautiful, 
-                functional, and user-centered digital experiences. With over 5 years 
-                of experience in the field, I'm always looking for new and innovative 
-                ways to bring my clients' visions to life.
+                I'm a Second Year B.Tech Computer Science student specializing in AI and Machine Learning at VIT-Bhopal University.
+                I have a strong foundation in Python, C, and C++, with a keen interest in building intelligent backend systems.
               </p>
               <p className="text-lg text-muted-foreground leading-relaxed">
-                I specialize in building modern web applications using cutting-edge 
-                technologies like React, TypeScript, Node.js, and AI/ML tools. 
-                My approach combines clean code practices with creative problem-solving 
-                to deliver solutions that exceed expectations.
+                Currently, I serve as the **Co-Founder of CertiFLEX**, a startup validating educational content, and as the **Treasurer of the Entrepreneurship Cell (E-Cell)** at my university.
+                I previously served as a Core Member of the Finance and Sponsorship team at E-Cell.
               </p>
               <p className="text-lg text-muted-foreground leading-relaxed">
-                When I'm not coding, you can find me exploring new technologies, 
-                contributing to open-source projects, or sharing knowledge with the 
-                developer community.
+                My technical journey is marked by achievements like securing a **Global Rank of 5774** in TCS CodeVita Season 12 (Top 1%) and publishing research on AI-driven recruitment.
               </p>
 
               {/* Highlight Box */}
               <div className="glass p-6 rounded-xl mt-8">
                 <p className="text-foreground font-medium">
-                  "I believe great software is born from the intersection of technical 
-                  excellence and genuine understanding of user needs."
+                  "I believe in the power of AI to solve real-world problems, from educational verification to healthcare accessibility."
                 </p>
               </div>
             </div>
