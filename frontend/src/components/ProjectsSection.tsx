@@ -4,6 +4,15 @@ import { Button } from "./ui/button";
 
 const projects = [
   {
+    title: "AutoEmail-RAG",
+    description: "Draft replies of the mails by using your previous replies as knowledge base and your companies policy as knowledge base.",
+    image: "/autoemail_rag_thumbnail.png",
+    tags: ["RAG", "AI", "Email Automation"],
+    liveUrl: "https://email-rag-gilt.vercel.app",
+    githubUrl: "#",
+    featured: true,
+  },
+  {
     title: "Aarogya Saathi",
     description: "Rural healthcare platform with multilingual chatbot & government scheme checker. (Hackathon Winner)",
     image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&h=600&fit=crop",

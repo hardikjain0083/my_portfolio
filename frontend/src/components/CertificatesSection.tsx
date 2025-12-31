@@ -3,6 +3,14 @@ import { Award, ExternalLink, Calendar, CheckCircle2 } from "lucide-react";
 
 const certificates = [
     {
+        title: "Applied Machine Learning in Python",
+        issuer: "University of Michigan (Coursera)",
+        date: "Dec 2025",
+        type: "Course Certification",
+        link: "https://www.coursera.org/account/accomplishments/verify/R9L8Z0J5POUA",
+        description: "Applied machine learning techniques using Python (scikit-learn).",
+    },
+    {
         title: "Prepare Data for ML APIs on Google Cloud",
         issuer: "Google Cloud",
         date: "Dec 2025",
